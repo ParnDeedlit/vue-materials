@@ -1,0 +1,36 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 72 94">
+  <defs>
+    <circle id="a" cx="32.1" cy="32.1" r="32.1"/>
+    <path id="c" d="M19 63.2c1.8-2 1.8-5.2 0-7.2a6.6 6.6 0 01-1-6.6l1-2.3c.7-1.7.1-3.7-1.4-4.8L3.3 32.7a6.7 6.7 0 01-2-8.8l2.4-4.5c.6-1.2.4-2.7-.6-3.7 0 0-3-3.5-2.6-5.7C2 3.7 8.7 5.7 10 3.2L11.4 0 28 6.2l-2.5 4a2 2 0 001 3l3.3 1.3a.7.7 0 010 1.4l-3.5 1.3c-1 .5-2 1.3-2.5 2.3a3 3 0 001.1 4l4.6 2.8c1.6 1 2.5 2.7 2.6 4.5v.1a4.8 4.8 0 01-4.9 5l-7.3-.2c-1.2 0-1.7 1.6-.7 2.3l4.3 3c1.5 1 2 2.9 1.5 4.5l-.5 1.3c-.7 2 .1 4.1 2 5.1l6 3.4a4.8 4.8 0 011 7.7L27.3 69l-17.7 4 9.3-9.7z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <g transform="translate(11.7 2.2)">
+      <path stroke="#80868B" stroke-linecap="round" stroke-width="3" d="M4 75.3L36.9.2"/>
+      <path fill="#5F6368" d="M59.7 37.7A39.2 39.2 0 010 71l1.3-2.8A36.1 36.1 0 1030.4 2.8L31.6.2a39.2 39.2 0 0128.1 37.6z"/>
+      <path stroke="#5F6368" stroke-linecap="round" stroke-width="3" d="M20.6 75.4v11"/>
+      <circle cx="20.4" cy="75.3" r="2.9" fill="#3C4043"/>
+      <path fill="#3C4043" d="M17.7 92C18 85.2 19 81.8 20.6 82c1.6-.2 2.5 3.2 2.8 10.2h-5.7z"/>
+      <path fill="#5F6368" d="M4.4 92.8c5.8-3.4 11.4-5 16.6-5a29 29 0 0115.7 5"/>
+    </g>
+    <g transform="translate(0 7.7)">
+      <mask id="b" fill="#fff">
+        <use xlink:href="#a"/>
+      </mask>
+      <use fill="#5F6368" xlink:href="#a"/>
+      <circle cx="40.7" cy="24.8" r="32.1" fill="#80868B" mask="url(#b)"/>
+      <g mask="url(#b)">
+        <g transform="translate(20.7 -4.6)">
+          <mask id="d" fill="#fff">
+            <use xlink:href="#c"/>
+          </mask>
+          <use fill="#5F6368" fill-rule="nonzero" xlink:href="#c"/>
+          <path stroke="#BDC1C6" stroke-dasharray="4" stroke-width="2" d="M-4.8 54.4H25c4.3 0 6.4-2.5 6.4-7.5s-2.1-7.5-6.4-7.5H1.8c-4.9 0-7.3-3.5-7.3-10.5S-3 18.5 1.8 18.6h36.4c3.3-.4 5 .7 5 3.4s-1.7 3.8-5 3.4l2.8 7" mask="url(#d)"/>
+          <path stroke="#9AA0A6" stroke-width="2" d="M32.4 36.7c-2.4-5.7-4.7-8.5-6.7-8.5H8.6c-2 0-4.3-2.6-6.7-8" mask="url(#d)"/>
+        </g>
+      </g>
+      <path fill="#3C4043" fill-opacity=".3" fill-rule="nonzero" d="M13.1 63.2l2.2-7.3c1.1-4-1-8-5-9.2l-4-1.3A2 2 0 015 42.6l3.3-6.3a7 7 0 00-.4-7L7.3 28c-1.3-2-3.7-3.1-6-2.9l-10.7 1.2 5.5 25.2 17 11.6z" mask="url(#b)"/>
+      <rect width="20.1" height="7.3" x="13.4" y="14.8" fill="#9AA0A6" mask="url(#b)" rx="3.7"/>
+    </g>
+  </g>
+</svg>

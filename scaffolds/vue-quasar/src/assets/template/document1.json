@@ -1,0 +1,175 @@
+{
+    "name": "浅色地图",
+    "current": {
+        "id": "公共服务区区",
+        "type": "VectorTile",
+        "name": "公共服务区"
+    },
+    "backgrounds": [
+        {
+            "title": "OSM地图",
+            "name": "OSM街道地图",
+            "id": "osmstreets",
+            "key": "osmstreets",
+            "icon": "icon-background",
+            "type": "background",
+            "tileUrl": "https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=sk.eyJ1IjoiY2hlbmdkYWRhIiwiYSI6ImNqZDFjaGo0ZjFzcnoyeG54enoxdnNuZHUifQ.hTWXXBUQ0wdGeuDF3GWeUw",
+            "imgUrl": "https://user-images.githubusercontent.com/23654117/56859980-16e31c80-69c4-11e9-9e15-0980bd7ff947.png"
+        }
+    ],
+    "sprite": "http://localhost:6163/igs/rest/mrms/vtiles/sprite",
+    "glyphs": "http://localhost:6163/igs/rest/mrms/vtiles/fonts/{fontstack}/{range}.pbf",
+    "layers": [
+        {
+            "title": "我的工程",
+            "name": "我的工程",
+            "key": "我的工程",
+            "id": "我的工程",
+            "description": "我的工程",
+            "info": "我的工程",
+            "icon": "icon-group",
+            "type": "GroupLayer",
+            "children": [
+                {
+                    "title": "动态瓦片",
+                    "name": "动态瓦片",
+                    "key": "5444c3b9-d6bb-46c6-ba39-778181a922e7",
+                    "id": "5444c3b9-d6bb-46c6-ba39-778181a922e7",
+                    "description": "动态瓦片",
+                    "info": "动态瓦片",
+                    "icon": "icon-group",
+                    "type": "GroupLayer",
+                    "children": [
+                    ]
+                },
+                {
+                    "title": "地图文档",
+                    "name": "地图文档",
+                    "key": "5444c3b9-d5bb-46c6-ba39-778181a922e7",
+                    "id": "5444c3b9-d5bb-46c6-ba39-778181a922e7",
+                    "description": "地图文档",
+                    "info": "地图文档",
+                    "icon": "icon-group",
+                    "type": "GroupLayer",
+                    "children": [
+                        {
+                            "tileUrl": "http://develop.smaryun.com:6163/igs/rest/mrms/docs/世界地图3857?bbox={bbox}",
+                            "url": "http://develop.smaryun.com:6163/igs/rest/mrms/docs/世界地图3857?bbox={bbox}",
+                            "title": "世界地图3857",
+                            "name": "世界地图3857",
+                            "key": "世界地图3857",
+                            "id": "世界地图3857",
+                            "type": "RasterTile",
+                            "subtype": "IgsDocLayer",
+                            "description": "图层信息",
+                            "info": "图层信息",
+                            "icon": "icon-background"
+                        },
+                        {
+                            "tileUrl": "http://develop.smaryun.com:6163/igs/rest/mrms/docs/中国地图3857?bbox={bbox}",
+                            "url": "http://develop.smaryun.com:6163/igs/rest/mrms/docs/中国地图3857?bbox={bbox}",
+                            "title": "中国地图3857",
+                            "name": "中国地图3857",
+                            "key": "中国地图3857",
+                            "id": "中国地图3857",
+                            "type": "RasterTile",
+                            "subtype": "IgsDocLayer",
+                            "description": "图层信息",
+                            "info": "图层信息",
+                            "icon": "icon-background"
+                        }
+                    ]
+                },
+                {
+                    "title": "WMTS",
+                    "name": "WMTS",
+                    "key": "WMTS",
+                    "id": "WMTS",
+                    "description": "WMTS",
+                    "info": "WMTS",
+                    "icon": "icon-group",
+                    "type": "GroupLayer",
+                    "children": []
+                },
+                {
+                    "title": "WMS",
+                    "name": "WMS",
+                    "key": "WMS",
+                    "id": "WMS",
+                    "description": "WMS",
+                    "info": "WMS",
+                    "icon": "icon-group",
+                    "type": "GroupLayer",
+                    "children": []
+                }
+            ]
+        }
+    ],
+    "sources": {
+        "默认数据源": {
+            "name": "默认数据源",
+            "type": "Default",
+            "url": "localhost",
+            "min": 0,
+            "max": 24,
+            "description": "默认数据源提供一个默认的空的背景底图，该底图不显示作为游标定位其他图层.默认数据源前端代码内置的无法删除."
+        },
+        "IGServer": {
+            "name": "IGServer",
+            "type": "VectorTile",
+            "url": "http://localhost:6163/igs/rest/mrms/tile/OSM全中国/{z}/{y}/{x}?type=cpbf&returnError=false",
+            "min": 0,
+            "max": 24,
+            "description": "IGServer矢量瓦片数据源测试案例."
+        }
+    },
+    "service": {
+        "化简服务": {
+            "name": "化简服务",
+            "type": "igserver",
+            "url": ""
+        },
+        "GEOJSON服务": {
+            "name": "GEOJSON服务",
+            "type": "igserver",
+            "url": "http://localhost:6163/onemap/layer/query?gdbp={gdbp}&compress=true&level=20&page=0&pageCount=500"
+        },
+        "军测图幅服务": {
+            "name": "军测图幅服务",
+            "type": "extend",
+            "url": "http://{ip}:{port}/igs/rest/mrles/CreateJBPublishData?frameNo={frameNo}&srsName={srsName}&islonlat=true"
+        }
+    },
+    "maprender": "mapboxgl",
+    "bounds": {
+        "east": 116.38250754016423,
+        "south": 39.85755199034273,
+        "west": 116.3624380608913,
+        "north": 39.86958495772035
+    },
+    "widget": {
+        "control": {
+            "SimpleDraw": {
+                "position": "bottom-left",
+                "offset": [10, 40],
+                "theme": "dark",
+                "className": "bg-black text-white",
+                "cssStyle": {
+                    "width": "100% !important",
+                    "height": "36px !important"
+                }
+            },
+            "Statebar": {
+                "position": "bottom-left",
+                "offset": [0, 0],
+                "theme": "dark",
+                "className": "bg-black text-white",
+                "cssStyle": {
+                    "background": "#000000 !important",
+                    "width": "calc(100vw - 50px) !important"                    
+                }
+            }
+        }
+    }
+  }
+  
