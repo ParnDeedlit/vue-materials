@@ -12,6 +12,7 @@
           dark
           size="sm"
           :color="color"
+          @click="b.click"
         >
           <q-icon :name="b.icon" />
         </q-btn>
@@ -25,6 +26,8 @@
         round
         dark
         :color="color"
+        @click="this.handleBearing"
+        :style="rotateBearing"
       >
         <q-icon :name="icons.compass" />
       </q-btn>
@@ -36,6 +39,7 @@
       <q-btn
         round
         :color="color"
+        @click="this.handlePitch"
       >
         <q-icon :name="icons.viewmode" />
       </q-btn>
@@ -58,6 +62,7 @@
       <q-btn
         round
         :color="color"
+        @click="this.handleGnss"
       >
         <q-icon :name="icons.gnss" />
       </q-btn>
@@ -66,7 +71,7 @@
       :position="position.tellurion"
       :offset="offset.tellurion"
     >
-      <tellurion :center="center" />
+      <tellurion :center="center" :bounds="bounds"/>
     </q-page-sticky>
   </div>
 </template>
@@ -91,6 +96,15 @@ export default {
       type: Object,
       required: false,
     },
+    bounds: {
+      type: Object,
+      required: false,
+    },
+    bearing: {
+      type: Number,
+      default: 30,
+      required: false,
+    },
   },
   data() {
     return {
@@ -99,11 +113,13 @@ export default {
           name: '放大',
           tip: '放大',
           icon: mdiPlusThick,
+          click: this.handleZoomIn,
         },
         {
           name: '缩小',
           tip: '缩小',
           icon: mdiMinus,
+          click: this.handleZoomOut,
         },
       ],
       icons: {
@@ -129,7 +145,56 @@ export default {
         gnss: [20, 150],
         tellurion: [20, 35],
       },
+      rotateBearing: {},
     };
+  },
+  watch: {
+    bearing(val) {
+      console.log('bearing', val);
+      const rotate = val - 50;
+      this.rotateBearing = { transform: `rotate(${rotate}deg)` };
+    },
+  },
+  methods: {
+    handleZoomIn() {
+      if (this.map) {
+        this.map.zoomIn();
+      }
+    },
+    handleZoomOut() {
+      if (this.map) {
+        this.map.zoomOut();
+      }
+    },
+    handlePitch() {
+      if (this.map) {
+        const pitch = this.map.getPitch();
+        if (pitch <= 0) {
+          this.map.setPitch(40);
+        } else {
+          this.map.setPitch(0);
+        }
+      }
+    },
+    handleBearing() {
+      if (this.map) {
+        this.map.setBearing(0);
+      }
+    },
+    handleGnss() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.handleGnssSuccess);
+      } else {
+        alert('浏览器不支持GPS定位!');
+      }
+    },
+    handleGnssSuccess(positon) {
+      if (this.map) {
+        console.log('gnss', positon);
+        this.map.setCenter({ lng: positon.coords.longitude, lat: positon.coords.latitude });
+        this.map.setZoom(16);
+      }
+    },
   },
 };
 </script>

@@ -111,6 +111,7 @@ export default {
       this.drawer = drawer;
     },
     handleCreate(e) {
+      console.log('handleCreate', e);
       if (this.mode === 'QueryByRect' || this.mode === 'QueryByPolygon') {
         this.drawer.delete(e.features[0].id);
         // 执行查询操作

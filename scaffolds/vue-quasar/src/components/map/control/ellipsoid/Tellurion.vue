@@ -27,6 +27,10 @@ export default {
       type: Object,
       required: false,
     },
+    bounds: {
+      type: Object,
+      required: false,
+    },
   },
   data() {
     return {
@@ -71,9 +75,9 @@ export default {
 
       return d3.select(self.context.canvas)
         .call(self.zoom(self.projection)
-          .on('zoom.render', () => self.render(land110, graticule))
-          .on('end.render', () => self.render(land50, graticule)))
-        .call(() => self.render(land50, graticule))
+          .on('zoom.render', () => self.render(land110, graticule, self.bounds))
+          .on('end.render', () => self.render(land50, graticule, self.bounds)))
+        .call(() => self.render(land50, graticule, self.bounds))
         .node();
     },
     getCanva() {
@@ -94,30 +98,44 @@ export default {
       this.projection.scale(this.projection.scale() * ((l - 1) / l)).precision(0.2);
       return dy;
     },
-    render(land, lnglat) {
+    render(land, lnglat, bounds) {
       const self = TellurionSelf;
       self.context.clearRect(0, 0, self.width, self.height);
+
       self.context.beginPath();
       self.path(self.sphere);
       self.context.fillStyle = '#fff';
       self.context.fill();
+
       self.context.beginPath();
       self.path(land);
       self.context.fillStyle = '#000';
       self.context.fill();
+
       self.context.beginPath();
       self.path(self.sphere);
       self.context.stroke();
+
       self.context.beginPath();
       self.path(lnglat);
       self.context.lineWidth = 0.5;
       self.context.strokeStyle = '#aaa';
       self.context.stroke();
+
+      self.context.beginPath();
+      self.path(bounds);
+      self.context.lineWidth = 1.5;
+      self.context.strokeStyle = '#f00';
+      self.context.stroke();
+      self.context.beginPath();
+      self.path(bounds);
+      self.context.fillStyle = '#44000088';
+      self.context.fill();
     },
     zoomToCenter(centers) {
       TellurionSelf.projection.rotate(centers);
       d3.select(this.canvas)
-        .call(() => this.render(land50, graticule));
+        .call(() => this.render(land50, graticule, this.bounds));
     },
     point(that) {
       const t = d3.touches(that);
@@ -165,6 +183,7 @@ export default {
       }
 
       TellurionSelf.projection.rotate(versor.rotation(q1));
+      console.log('projection', TellurionSelf.projection.invert, TellurionSelf.projection.invert(0, 0));
 
       // In vicinity of the antipode (unstable) of q0, restart.
       if (delta[0] < 0.7) TellurionSelf.zoomstarted.call(canva);

@@ -4,11 +4,12 @@
     :accessToken="accessToken"
     :mapStyle="mapStyle"
     :zoom="mapZoom"
-    :center="center"
     :crs="crs"
+    :showTileBoundaries="true"
     @load="handleLoad"
-    @move="handMove"
-    @zoom="handZoom"
+    @move="handleMove"
+    @zoom="handleZoom"
+    @rotate="handleRotate"
   >
     <!-- <q-page-container class="mapbox-page-container"> -->
     <q-page
@@ -76,7 +77,15 @@
           :url="l.url"
         />
       </div>
-      <ellipsoid-bar v-if="control.Ellipsoid" v-bind="control.Ellipsoid" :center="center"/>
+      <mapbox-geojson-layer
+        v-if="false"
+        :sourceId="geojson.sourceid"
+        :source="geojson.source"
+        :layerId="geojson.layerid"
+        :layer="geojson.layer"
+      />
+      <ellipsoid-bar v-if="control.Ellipsoid" v-bind="control.Ellipsoid"
+        :center="center" :bounds="bounds" :bearing="bearing" :map="map"/>
       <simple-draw v-if="control.SimpleDraw" v-bind="control.SimpleDraw" />
      <!--  <draw></draw>
       <measure></measure>
@@ -98,10 +107,13 @@ import {
   MapboxIgsTileLayer,
   MapboxIgsDocLayer,
   MapboxIgsTdtLayer,
+  MapboxGeojsonLayer,
   // MapboxIgsWmtsLayer
 } from '@mapgis/webclient-vue-mapboxgl';
 import {
   IDocument,
+  Doc,
+  Map,
   Layer,
   VectorTile,
   Util,
@@ -116,6 +128,10 @@ import Measure from './control/measure/Measure';
 import QueryPosition from './query/queryPositon/QueryPosition';
 import QueryFeatures from './query/queryFeatures/QueryFeatures'; */
 
+import geojsonData from './json/geojson.json';
+
+const { MapRender } = Doc;
+const { MapToBounds, defaultBounds } = Map;
 const { IgsLayerType } = Layer;
 const { UUID } = Util;
 const { Convert } = VectorTile;
@@ -146,13 +162,32 @@ export default {
       document: this.initDocument(),
       mapZoom: 4, // 地图初始化级数
       center: { lng: 110, lat: 32 }, // 地图显示中心
-      crs: 'EPSG:3857',
+      bearing: 0,
+      bounds: defaultBounds,
+      crs: 'EPSG:4326',
       sources: {},
       backgrounds: [],
       rasters: [],
       vectors: [],
       control: this.initControl(),
       map: {},
+      geojson: {
+        sourceid: 'geojsonsourceid',
+        source: {
+          type: 'geojson',
+          data: geojsonData,
+        },
+        layerid: 'geojsonlayer',
+        layer: {
+          id: 'queryDatas',
+          type: 'fill',
+          source: 'geojsonsourceid',
+          paint: {
+            'fill-color': 'rgba(255, 251, 240, 0.4)',
+            'fill-outline-color': '#ff0000',
+          },
+        },
+      },
     };
   },
   components: {
@@ -170,6 +205,7 @@ export default {
     MapboxRasterLayer,
     MapboxVectorLayer,
     MapboxIgsTdtLayer,
+    MapboxGeojsonLayer,
     // MapboxIgsWmtsLayer,
     // MapgisDocument,
     // MapgisDocumentQuasar,
@@ -217,11 +253,20 @@ export default {
       const { map } = payload;
       this.map = map;
     },
-    handMove(e) {
-      this.center = e.map.getCenter();
+    handleMove(e) {
+      this.changeMapState(e);
     },
-    handZoom(e) {
+    handleZoom(e) {
+      this.changeMapState(e);
+    },
+    handleRotate(e) {
+      this.bearing = e.map.getBearing();
+    },
+    changeMapState(e) {
       this.center = e.map.getCenter();
+      const geoBounds = MapToBounds(e.map.getBounds(), MapRender.MapBoxGL);
+      this.bounds = geoBounds.geojson();
+      this.bearing = e.map.getBearing();
     },
     isRasterLayer(subtype) {
       return subtype === 'Raster';

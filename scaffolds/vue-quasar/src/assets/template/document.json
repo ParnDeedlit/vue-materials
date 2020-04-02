@@ -14,7 +14,7 @@
       "icon": "icon-background",
       "type": "background",
       "token": "2ddaabf906d4b5418aed0078e1657029",
-      "tileUrl": "http://t2.tianditu.gov.cn/img_w/wmts",
+      "tileUrl": "http://t2.tianditu.gov.cn/img_c/wmts",
       "imgUrl": "https://user-images.githubusercontent.com/23654117/56859980-16e31c80-69c4-11e9-9e15-0980bd7ff947.png"
     }
   ],
@@ -25,7 +25,7 @@
       "title": "背景底色",
       "source": "IGServer",
       "sourceLayer": "背景底色",
-      "url": "http://localhost:6163/igs/rest/mrms/tile/OSM全中国/{z}/{y}/{x}?type=cpbf",
+      "url": "http://localhost:6163/igs/rest/mrms/tile/OSM全中国_4326/{z}/{y}/{x}?type=cpbf",
       "minZoom": 0,
       "maxZoom": 24,
       "subtype": "BackGround",
@@ -47,7 +47,7 @@
         }
       },
       "layout": {
-        "visible": true
+        "visible": false
       }
     },
     {
@@ -4336,7 +4336,7 @@
     "IGServer": {
       "name": "IGServer",
       "type": "VectorTile",
-      "url": "http://localhost:6163/igs/rest/mrms/tile/OSM全中国/{z}/{y}/{x}?type=cpbf&returnError=true",
+      "url": "http://localhost:6163/igs/rest/mrms/tile/OSM全中国_4326/{z}/{y}/{x}?type=cpbf&returnError=true",
       "min": 0,
       "max": 24,
       "description": "IGServer矢量瓦片数据源测试案例."
@@ -4405,5 +4405,5 @@
     "west": 116.3624380608913,
     "north": 39.86958495772035
   },
-  "crs":"EPSG:3857"
+  "crs":"EPSG:4326"
 }
